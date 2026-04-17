@@ -1,10 +1,12 @@
 import CertificationsList from "@/components/sections/certifications-list";
-import { getClient } from "@/lib/sanity/client";
-import { isSanityConfigured } from "@/lib/sanity/env";
-import { certificationsQuery } from "@/lib/sanity/queries";
-import type { Certification } from "@/lib/sanity/types";
+import { fetchHygraphSafe } from "@/lib/hygraph/client";
+import { certificationsQuery } from "@/lib/hygraph/queries";
+import type { Certification } from "@/lib/hygraph/types";
 
 export default async function CertificationsPage() {
-  const certifications = isSanityConfigured ? await getClient().fetch<Certification[]>(certificationsQuery) : [];
+  const certificationsData = await fetchHygraphSafe<{ certifications: Certification[] }>(certificationsQuery, {
+    certifications: [],
+  });
+  const certifications = certificationsData.certifications || [];
   return <CertificationsList certifications={certifications} />;
 }

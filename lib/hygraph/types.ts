@@ -1,10 +1,3 @@
-export type SanityImage = {
-  asset?: {
-    _ref: string;
-    _type: "reference";
-  };
-};
-
 export type SocialLink = {
   label: string;
   url: string;
@@ -14,26 +7,31 @@ export type Profile = {
   name: string;
   role: string;
   shortIntro: string;
-  bio: unknown[];
+  bio: string;
+  profilePhoto?: {
+    url: string;
+  } | null;
   socialLinks: SocialLink[];
 };
 
 export type Skill = {
   id: string;
   name: string;
-  category?: string;
+  category?: string | null;
 };
 
 export type Project = {
   id: string;
   title: string;
-  slug: { current: string };
+  slug: string;
   description: string;
   techStack: string[];
-  image: SanityImage;
-  githubUrl?: string;
-  liveUrl?: string;
-  featured?: boolean;
+  image?: {
+    url: string;
+  } | null;
+  githubUrl?: string | null;
+  liveUrl?: string | null;
+  featured?: boolean | null;
 };
 
 export type Certification = {
@@ -41,7 +39,7 @@ export type Certification = {
   title: string;
   issuer: string;
   issueDate: string;
-  credentialUrl?: string;
+  credentialUrl?: string | null;
 };
 
 export type Experience = {
@@ -49,8 +47,8 @@ export type Experience = {
   company: string;
   role: string;
   startDate: string;
-  endDate?: string;
-  current?: boolean;
+  endDate?: string | null;
+  current?: boolean | null;
   description: string;
 };
 
@@ -58,10 +56,10 @@ export type Education = {
   id: string;
   institution: string;
   degree: string;
-  field?: string;
+  field?: string | null;
   startDate: string;
-  endDate?: string;
-  description?: string;
+  endDate?: string | null;
+  description?: string | null;
 };
 
 export type HomePageData = {

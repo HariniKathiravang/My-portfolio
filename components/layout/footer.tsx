@@ -1,5 +1,5 @@
 import Container from "../ui/container";
-import type { SocialLink } from "@/lib/sanity/types";
+import type { SocialLink } from "@/lib/hygraph/types";
 
 export default function Footer({ socialLinks }: { socialLinks: SocialLink[] }) {
   return (

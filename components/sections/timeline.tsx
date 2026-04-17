@@ -12,7 +12,7 @@ export default function Timeline({ items, title }: { items: TimelineItem[]; titl
       <h2 className="text-2xl font-semibold">{title}</h2>
       <div className="mt-6 space-y-6">
         {items.map((item) => (
-          <div key={item.id} className="rounded-2xl border bg-card p-5">
+          <div key={item.id} className="rounded-2xl border border-white/15 bg-card/70 p-5 shadow-sm">
             <div className="flex flex-col justify-between gap-2 md:flex-row">
               <div>
                 <h3 className="text-lg font-medium">{item.title}</h3>

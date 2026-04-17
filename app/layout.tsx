@@ -3,13 +3,13 @@ import "./globals.css";
 import Providers from "./providers";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { getClient } from "@/lib/sanity/client";
-import { isSanityConfigured } from "@/lib/sanity/env";
-import { profileQuery } from "@/lib/sanity/queries";
-import type { Profile } from "@/lib/sanity/types";
+import { fetchHygraphSafe } from "@/lib/hygraph/client";
+import { profileQuery } from "@/lib/hygraph/queries";
+import type { Profile } from "@/lib/hygraph/types";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const profile = isSanityConfigured ? await getClient().fetch<Profile | null>(profileQuery) : null;
+  const profileData = await fetchHygraphSafe<{ profiles: Profile[] }>(profileQuery, { profiles: [] });
+  const profile = profileData.profiles[0] || null;
 
   return {
     title: profile?.name ? `${profile.name} | Portfolio` : "Portfolio",
@@ -22,7 +22,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const profile = isSanityConfigured ? await getClient().fetch<Profile | null>(profileQuery) : null;
+  const profileData = await fetchHygraphSafe<{ profiles: Profile[] }>(profileQuery, { profiles: [] });
+  const profile = profileData.profiles[0] || null;
 
   return (
     <html lang="en" suppressHydrationWarning>
